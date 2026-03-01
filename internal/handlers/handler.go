@@ -30,7 +30,10 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	{
 		todo := api.Group("/todo")
 		{
-			todo.POST("/")
+			todo.POST("/", h.createTodoHandler())
+			todo.GET("/:id", h.getTodoById())
+			todo.PUT("/:id", h.updateTodo())
+			todo.DELETE("/:id", h.deleteTodo())
 		}
 		api.GET("/default", func(ctx *gin.Context) {
 			ctx.JSON(200, gin.H{

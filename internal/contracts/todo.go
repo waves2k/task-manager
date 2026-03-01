@@ -1,6 +1,9 @@
 package contracts
 
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 type CreateTodoRequest struct {
 	Title     string `json:"title" binding:"required"`
@@ -13,4 +16,17 @@ type TodoResponse struct {
 	Completed bool      `json:"completed"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
+}
+
+type UpdateTodoRequest struct {
+	Title     *string `json:"title"`
+	Completed *bool   `json:"completed"`
+}
+
+func (i *UpdateTodoRequest) Validate() error {
+	if i.Completed == nil &&
+		i.Title == nil {
+		return fmt.Errorf("invalid request body input data")
+	}
+	return nil
 }

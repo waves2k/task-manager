@@ -17,6 +17,7 @@ coverage.*
 *.coverprofile
 profile.cov
 
+/migrations
 .air.toml
 docker-compose.yaml
 # Dependency directories (remove the comment below to include it)
