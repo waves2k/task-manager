@@ -10,6 +10,8 @@ import (
 type Config struct {
 	ConnectionString string
 	Port             string
+	PasswordSalt     string
+	JWTSecret        string
 }
 
 func Load() (*Config, error) {
@@ -21,6 +23,8 @@ func Load() (*Config, error) {
 	cfg := &Config{
 		ConnectionString: os.Getenv("CONNECTION_STRING"),
 		Port:             os.Getenv("PORT"),
+		PasswordSalt:     os.Getenv("PASSWORD_SALT"),
+		JWTSecret:        os.Getenv("JWT_SECRET"),
 	}
 	return cfg, nil
 }

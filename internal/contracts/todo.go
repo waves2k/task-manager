@@ -3,6 +3,9 @@ package contracts
 import (
 	"fmt"
 	"time"
+
+	"github.com/google/uuid"
+	apperrors "github.com/waves2k/task-manager/internal/errors"
 )
 
 type CreateTodoRequest struct {
@@ -11,7 +14,7 @@ type CreateTodoRequest struct {
 }
 
 type TodoResponse struct {
-	Id        int       `json:"id"`
+	Id        uuid.UUID `json:"id"`
 	Title     string    `json:"title"`
 	Completed bool      `json:"completed"`
 	CreatedAt time.Time `json:"created_at"`
@@ -26,7 +29,7 @@ type UpdateTodoRequest struct {
 func (i *UpdateTodoRequest) Validate() error {
 	if i.Completed == nil &&
 		i.Title == nil {
-		return fmt.Errorf("invalid request body input data")
+		return apperrors.NewValidationError(apperrors.InvalidRequestBodyData, fmt.Errorf(apperrors.InvalidRequestBodyData))
 	}
 	return nil
 }

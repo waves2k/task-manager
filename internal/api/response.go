@@ -1,4 +1,4 @@
-package handlers
+package api
 
 import "github.com/gin-gonic/gin"
 
@@ -18,4 +18,14 @@ func NewSucceededResponse(c *gin.Context, statusCode int, data interface{}) {
 		"success": true,
 		"data":    data,
 	})
+}
+
+func NewCustomDataSucceededResponse(c *gin.Context, statusCode int, data map[string]interface{}) {
+	responseJsonBody := gin.H{
+		"succes": true,
+	}
+	for k, v := range data {
+		responseJsonBody[k] = v
+	}
+	c.JSON(statusCode, responseJsonBody)
 }

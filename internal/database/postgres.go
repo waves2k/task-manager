@@ -8,8 +8,11 @@ import (
 )
 
 const (
-	TodoTable  = "todos_user"
-	UsersTable = "users"
+	TodosTable        = "todos"
+	UsersTable        = "users"
+	ListsTable        = "lists"
+	ListsToTodosTable = "lists_todos"
+	UsersToListsTable = "users_lists"
 )
 
 func Connect(connectionString string) (*pgxpool.Pool, error) {
