@@ -9,8 +9,9 @@ import (
 )
 
 type CreateTodoRequest struct {
-	Title     string `json:"title" binding:"required"`
-	Completed bool   `json:"completed"`
+	Title     string    `json:"title" binding:"required"`
+	Completed bool      `json:"completed"`
+	ListId    uuid.UUID `json:"list_id" binding:"required"`
 }
 
 type TodoResponse struct {

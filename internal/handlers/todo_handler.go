@@ -76,8 +76,9 @@ func (h *Handler) createTodoHandler() gin.HandlerFunc {
 			api.NewErrorResponse(c, http.StatusBadRequest, err.Error())
 			return
 		}
+
 		// TODO: GET USER_ID FROM THE CONTEXT
-		todo, err := h.todoService.Create(c.Request.Context(), input.Title, input.Completedm input.ListId, )
+		todo, err := h.todoService.Create(c.Request.Context(), input.Title, input.Completed, input.ListId)
 		if err != nil {
 			api.NewErrorResponse(c, http.StatusInternalServerError, err.Error())
 			return

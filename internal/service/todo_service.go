@@ -11,7 +11,7 @@ import (
 )
 
 type TodoService interface {
-	Create(ctx context.Context, title string, completed bool, listId, userId uuid.UUID) (*models.Todo, error)
+	Create(ctx context.Context, title string, completed bool, listId uuid.UUID) (*models.Todo, error)
 	GetAll(ctx context.Context, listId, userId uuid.UUID) ([]models.Todo, error)
 	GetById(ctx context.Context, todoId uuid.UUID) (*models.Todo, error)
 	Update(ctx context.Context, params UpdateTodoParams) (*models.Todo, error)
@@ -43,8 +43,9 @@ type UpdateTodoParams struct {
 	UserId    uuid.UUID
 }
 
-func (s *todoService) Create(ctx context.Context, title string, completed bool, listId, userId uuid.UUID) (*models.Todo, error) {
-	if !s.userRepo.IsExists(ctx, userId) {
+func (s *todoService) Create(ctx context.Context, title string, completed bool, listId uuid.UUID) (*models.Todo, error) {
+	userId := ctx.Value("user_id")
+	if !s.userRepo.IsExists(ctx, userId.(uuid.UUID)) {
 		return nil, apperrors.NewNotFoundError(apperrors.UserNotFoundMessage, fmt.Errorf(apperrors.UserNotFoundMessage))
 	}
 	if !s.listRepo.IsExists(ctx, listId) {
